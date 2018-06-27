@@ -1,0 +1,12 @@
+{
+  "name": "adxeed-email-followup",
+  "version": "1.0.0",
+  "description": "Adxeed email followup",
+  "main": "index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/mjml -r index.mjml -o index.html"
+  },
+  "devDependencies": {
+    "mjml": "^4.0.5"
+  }
+}
