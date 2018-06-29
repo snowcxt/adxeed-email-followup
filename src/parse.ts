@@ -1,11 +1,21 @@
 import { RawDraftContentBlock, RawDraftContentState, RawDraftEntity } from 'draft-js';
+import { TemplateExecutor } from 'lodash';
 import forEach from 'lodash/forEach';
+import template from 'lodash/template';
 
-function parseBlock(block: RawDraftContentBlock, entityMap: { [key: string]: RawDraftEntity }, options): string {
+interface IParseOptions {
+    bold: { left: string, right: string };
+    paragraph: TemplateExecutor;
+    variable: TemplateExecutor;
+}
+
+function parseBlock(block: RawDraftContentBlock, entityMap: { [key: string]: RawDraftEntity }, options: IParseOptions)
+    : string {
     let html = '';
     if (!block.text) {
         return '';
     }
+
     const insertions = {};
     forEach(block.inlineStyleRanges, (style) => {
         switch (style.style) {
@@ -19,7 +29,7 @@ function parseBlock(block: RawDraftContentBlock, entityMap: { [key: string]: Raw
     forEach(block.entityRanges, (entity) => {
         replacements[entity.offset] = {
             length: entity.length,
-            text: `${options.variable.left}${entityMap[entity.key].data.key}${options.variable.right}`,
+            text: options.variable({ value: entityMap[entity.key].data.key }),
         };
     });
 
@@ -50,14 +60,8 @@ const defaultOptions = {
         left: '<b>',
         right: '</b>',
     },
-    paragraph: {
-        left: '<p>',
-        right: '</p>',
-    },
-    variable: {
-        left: '{{',
-        right: '}}',
-    },
+    paragraph: '<p><%= value %></p>',
+    variable: '{{<%= value %>}}',
 };
 
 export default function parse(raw: RawDraftContentState, options?) {
@@ -68,11 +72,20 @@ export default function parse(raw: RawDraftContentState, options?) {
 
     let html = '';
 
+    const paragraph = template(config.paragraph);
+    const variable = template(config.variable);
+
+    const parseOptions: IParseOptions = {
+        bold: config.bold,
+        paragraph,
+        variable,
+    };
+
     forEach(raw.blocks, (block) => {
         if (!block.text) {
             return;
         }
-        html += `${config.paragraph.left}${parseBlock(block, raw.entityMap, config)}${config.paragraph.right}`;
+        html += paragraph({ value: parseBlock(block, raw.entityMap, parseOptions) });
     });
 
     return html;
