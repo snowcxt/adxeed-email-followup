@@ -1,6 +1,6 @@
 import { RawDraftContentBlock, RawDraftContentState, RawDraftEntity } from 'draft-js';
 
-function parseBlock(block: RawDraftContentBlock, entityMap: { [key: string]: RawDraftEntity }): string {
+function parseBlock(block: RawDraftContentBlock, entityMap: { [key: string]: RawDraftEntity }, options): string {
     let html = '';
     if (!block.text) {
         return '';
@@ -9,14 +9,17 @@ function parseBlock(block: RawDraftContentBlock, entityMap: { [key: string]: Raw
     block.inlineStyleRanges.forEach((style) => {
         switch (style.style) {
             case 'BOLD':
-                insertions[style.offset] = '<b>';
-                insertions[style.offset + style.length] = '</b>';
+                insertions[style.offset] = options.bold.left;
+                insertions[style.offset + style.length] = options.bold.right;
         }
     });
 
     const replacements = {};
     block.entityRanges.forEach((entity) => {
-        replacements[entity.offset] = { text: `{{${entityMap[entity.key].data.key}}}`, length: entity.length };
+        replacements[entity.offset] = {
+            length: entity.length,
+            text: `${options.variable.left}${entityMap[entity.key].data.key}${options.variable.right}`,
+        };
     });
 
     for (let i = 0; i <= block.text.length; i++) {
@@ -41,14 +44,34 @@ function parseBlock(block: RawDraftContentBlock, entityMap: { [key: string]: Raw
     return html;
 }
 
-export default function parse(raw: RawDraftContentState) {
+const defaultOptions = {
+    bold: {
+        left: '<b>',
+        right: '</b>',
+    },
+    paragraph: {
+        left: '<p>',
+        right: '</p>',
+    },
+    variable: {
+        left: '{{',
+        right: '}}',
+    },
+};
+
+export default function parse(raw: RawDraftContentState, options?) {
+    const config = {
+        ...defaultOptions,
+        ...options,
+    };
+
     let html = '';
 
     raw.blocks.forEach((block) => {
         if (!block.text) {
             return;
         }
-        html += `<p>${parseBlock(block, raw.entityMap)}</p>`;
+        html += `${config.paragraph.left}${parseBlock(block, raw.entityMap, config)}${config.paragraph.right}`;
     });
 
     return html;
