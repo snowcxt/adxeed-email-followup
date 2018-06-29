@@ -3,8 +3,9 @@ import forEach from 'lodash/forEach';
 import template from 'lodash/template';
 
 interface IParseOptions {
-    bold: { left: string, right: string };
-    variable: { left: string, right: string };
+    bold?: { left: string, right: string };
+    paragraph?: string;
+    variable?: { left: string, right: string };
 }
 
 function parseBlock(block: RawDraftContentBlock, entityMap: { [key: string]: RawDraftEntity }, options: IParseOptions)
@@ -65,7 +66,7 @@ const defaultOptions = {
     },
 };
 
-export default function parse(raw: RawDraftContentState, options?) {
+export default function parse(raw: RawDraftContentState, options?: IParseOptions) {
     const config = {
         ...defaultOptions,
         ...options,
