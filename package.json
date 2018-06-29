@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "./node_modules/.bin/mjml -r src/index.mjml -o dist/index.html",
-    "build2": "./node_modules/.bin/tsc src/parse.ts",
+    "build2": "./node_modules/.bin/tsc",
     "test": "./node_modules/.bin/mocha --require ts-node/register test/**/*.ts"
   },
   "devDependencies": {
