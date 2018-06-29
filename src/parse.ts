@@ -1,6 +1,6 @@
-import { RawDraftContentBlock, RawDraftContentState } from 'draft-js';
+import { RawDraftContentBlock, RawDraftContentState, RawDraftEntity } from 'draft-js';
 
-function parseBlock(block: RawDraftContentBlock): string {
+function parseBlock(block: RawDraftContentBlock, entityMap: { [key: string]: RawDraftEntity }): string {
     let html = '';
     if (!block.text) {
         return '';
@@ -14,13 +14,23 @@ function parseBlock(block: RawDraftContentBlock): string {
         }
     });
 
-    // let offset = 0;
+    const replacements = {};
+    block.entityRanges.forEach((entity) => {
+        replacements[entity.offset] = { text: `{{${entityMap[entity.key].data.key}}}`, length: entity.length };
+    });
+
     for (let i = 0; i <= block.text.length; i++) {
-        const char = block.text.charAt(i);
+        let char = block.text.charAt(i);
         const insertion = insertions[i];
         if (insertion) {
             html += insertion;
-            // offset += insertion.length;
+        }
+
+        const replacement = replacements[i];
+        if (replacement) {
+            html += replacement.text;
+            i += replacement.length - 1;
+            char = '';
         }
 
         if (char) {
@@ -33,11 +43,12 @@ function parseBlock(block: RawDraftContentBlock): string {
 
 export default function parse(raw: RawDraftContentState) {
     let html = '';
+
     raw.blocks.forEach((block) => {
         if (!block.text) {
             return;
         }
-        html += `<p>${parseBlock(block)}</p>`;
+        html += `<p>${parseBlock(block, raw.entityMap)}</p>`;
     });
 
     return html;
