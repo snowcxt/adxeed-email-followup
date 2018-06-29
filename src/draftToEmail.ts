@@ -10,6 +10,10 @@ const bodyTemp = template(body);
 export default function draftToEmail(draft: RawDraftContentState) {
     return bodyTemp({
         body: parse(draft, {
+            bold: {
+                left: '<strong>',
+                right: '</strong>',
+            },
             paragraph,
             variable: {
                 left: '`__',

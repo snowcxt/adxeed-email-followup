@@ -11,11 +11,11 @@ var bodyTemp = template_1.default(body_1.default);
 function draftToEmail(draft) {
     return bodyTemp({
         body: parse_1.default(draft, {
-            paragraph: paragraph_1.default,
             bold: {
                 left: '<strong>',
-                right: '</strong>'
+                right: '</strong>',
             },
+            paragraph: paragraph_1.default,
             variable: {
                 left: '`__',
                 right: '__`',
