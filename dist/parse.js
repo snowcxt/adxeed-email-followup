@@ -7,14 +7,19 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+var forEach_1 = __importDefault(require("lodash/forEach"));
+var template_1 = __importDefault(require("lodash/template"));
 function parseBlock(block, entityMap, options) {
     var html = '';
     if (!block.text) {
         return '';
     }
     var insertions = {};
-    block.inlineStyleRanges.forEach(function (style) {
+    forEach_1.default(block.inlineStyleRanges, function (style) {
         switch (style.style) {
             case 'BOLD':
                 insertions[style.offset] = options.bold.left;
@@ -22,7 +27,7 @@ function parseBlock(block, entityMap, options) {
         }
     });
     var replacements = {};
-    block.entityRanges.forEach(function (entity) {
+    forEach_1.default(block.entityRanges, function (entity) {
         replacements[entity.offset] = {
             length: entity.length,
             text: "" + options.variable.left + entityMap[entity.key].data.key + options.variable.right,
@@ -51,10 +56,7 @@ var defaultOptions = {
         left: '<b>',
         right: '</b>',
     },
-    paragraph: {
-        left: '<p>',
-        right: '</p>',
-    },
+    paragraph: '<p><%= value %></p>',
     variable: {
         left: '{{',
         right: '}}',
@@ -63,11 +65,12 @@ var defaultOptions = {
 function parse(raw, options) {
     var config = __assign({}, defaultOptions, options);
     var html = '';
-    raw.blocks.forEach(function (block) {
+    var paragraph = template_1.default(config.paragraph);
+    forEach_1.default(raw.blocks, function (block) {
         if (!block.text) {
             return;
         }
-        html += "" + config.paragraph.left + parseBlock(block, raw.entityMap, config) + config.paragraph.right;
+        html += paragraph({ value: parseBlock(block, raw.entityMap, config) });
     });
     return html;
 }

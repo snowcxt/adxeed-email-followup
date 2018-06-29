@@ -1,12 +1,10 @@
 import { RawDraftContentBlock, RawDraftContentState, RawDraftEntity } from 'draft-js';
-import { TemplateExecutor } from 'lodash';
 import forEach from 'lodash/forEach';
 import template from 'lodash/template';
 
 interface IParseOptions {
     bold: { left: string, right: string };
-    paragraph: TemplateExecutor;
-    variable: TemplateExecutor;
+    variable: { left: string, right: string };
 }
 
 function parseBlock(block: RawDraftContentBlock, entityMap: { [key: string]: RawDraftEntity }, options: IParseOptions)
@@ -29,7 +27,7 @@ function parseBlock(block: RawDraftContentBlock, entityMap: { [key: string]: Raw
     forEach(block.entityRanges, (entity) => {
         replacements[entity.offset] = {
             length: entity.length,
-            text: options.variable({ value: entityMap[entity.key].data.key }),
+            text: `${options.variable.left}${entityMap[entity.key].data.key}${options.variable.right}`,
         };
     });
 
@@ -61,7 +59,10 @@ const defaultOptions = {
         right: '</b>',
     },
     paragraph: '<p><%= value %></p>',
-    variable: '{{<%= value %>}}',
+    variable: {
+        left: '{{',
+        right: '}}',
+    },
 };
 
 export default function parse(raw: RawDraftContentState, options?) {
@@ -73,19 +74,12 @@ export default function parse(raw: RawDraftContentState, options?) {
     let html = '';
 
     const paragraph = template(config.paragraph);
-    const variable = template(config.variable);
-
-    const parseOptions: IParseOptions = {
-        bold: config.bold,
-        paragraph,
-        variable,
-    };
 
     forEach(raw.blocks, (block) => {
         if (!block.text) {
             return;
         }
-        html += paragraph({ value: parseBlock(block, raw.entityMap, parseOptions) });
+        html += paragraph({ value: parseBlock(block, raw.entityMap, config) });
     });
 
     return html;
