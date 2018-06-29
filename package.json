@@ -4,9 +4,13 @@
   "description": "Adxeed email followup",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/mjml -r src/index.mjml -o dist/index.html"
+    "build": "./node_modules/.bin/mjml -r src/index.mjml -o dist/index.html",
+    "build2": "./node_modules/.bin/tsc src/parse.ts"
   },
   "devDependencies": {
-    "mjml": "^4.0.5"
+    "@types/draft-js": "^0.10.23",
+    "mjml": "^4.0.5",
+    "tslint": "^5.10.0",
+    "typescript": "^2.9.2"
   }
 }
