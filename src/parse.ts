@@ -1,4 +1,5 @@
 import { RawDraftContentBlock, RawDraftContentState, RawDraftEntity } from 'draft-js';
+import forEach from 'lodash/forEach';
 
 function parseBlock(block: RawDraftContentBlock, entityMap: { [key: string]: RawDraftEntity }, options): string {
     let html = '';
@@ -6,7 +7,7 @@ function parseBlock(block: RawDraftContentBlock, entityMap: { [key: string]: Raw
         return '';
     }
     const insertions = {};
-    block.inlineStyleRanges.forEach((style) => {
+    forEach(block.inlineStyleRanges, (style) => {
         switch (style.style) {
             case 'BOLD':
                 insertions[style.offset] = options.bold.left;
@@ -15,7 +16,7 @@ function parseBlock(block: RawDraftContentBlock, entityMap: { [key: string]: Raw
     });
 
     const replacements = {};
-    block.entityRanges.forEach((entity) => {
+    forEach(block.entityRanges, (entity) => {
         replacements[entity.offset] = {
             length: entity.length,
             text: `${options.variable.left}${entityMap[entity.key].data.key}${options.variable.right}`,
@@ -67,7 +68,7 @@ export default function parse(raw: RawDraftContentState, options?) {
 
     let html = '';
 
-    raw.blocks.forEach((block) => {
+    forEach(raw.blocks, (block) => {
         if (!block.text) {
             return;
         }
