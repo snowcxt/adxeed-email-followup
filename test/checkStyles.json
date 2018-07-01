@@ -43,7 +43,7 @@
         },
         {
             "key": "dsasu",
-            "text": "sdf{{variable1}}sdf",
+            "text": "123{{variable1}}456{{variable1}}789 {{variable1}} 012",
             "type": "unstyled",
             "depth": 0,
             "inlineStyleRanges": [
@@ -53,9 +53,34 @@
                     "style": "BOLD"
                 },
                 {
+                    "offset": 18,
+                    "length": 4,
+                    "style": "BOLD"
+                },
+                {
+                    "offset": 28,
+                    "length": 8,
+                    "style": "BOLD"
+                },
+                {
                     "offset": 3,
                     "length": 13,
                     "style": "UNDERLINE"
+                },
+                {
+                    "offset": 21,
+                    "length": 3,
+                    "style": "UNDERLINE"
+                },
+                {
+                    "offset": 22,
+                    "length": 4,
+                    "style": "color-rgb(97,189,109)"
+                },
+                {
+                    "offset": 25,
+                    "length": 4,
+                    "style": "bgcolor-rgb(147,101,184)"
                 }
             ],
             "entityRanges": [
@@ -63,6 +88,16 @@
                     "offset": 3,
                     "length": 13,
                     "key": 3
+                },
+                {
+                    "offset": 19,
+                    "length": 13,
+                    "key": 4
+                },
+                {
+                    "offset": 36,
+                    "length": 13,
+                    "key": 5
                 }
             ],
             "data": {}
@@ -94,6 +129,22 @@
             }
         },
         "3": {
+            "type": "VARIABLE",
+            "mutability": "IMMUTABLE",
+            "data": {
+                "key": "{{variable1}}",
+                "text": "Some thing"
+            }
+        },
+        "4": {
+            "type": "VARIABLE",
+            "mutability": "IMMUTABLE",
+            "data": {
+                "key": "{{variable1}}",
+                "text": "Some thing"
+            }
+        },
+        "5": {
             "type": "VARIABLE",
             "mutability": "IMMUTABLE",
             "data": {

@@ -88,6 +88,5 @@ export default function parse(raw: RawDraftContentState, options?: IParseOptions
 
     // return html;
 
-
     return draftToHtml(raw);
 }
