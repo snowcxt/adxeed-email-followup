@@ -4,8 +4,9 @@
         "module": "commonjs",
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
-        "sourceMap": false,
-        "outDir": "dist"
+        "sourceMap": true,
+        "outDir": "dist",
+        "noUnusedLocals": true
     },
     "include": [
         "src/**/*"
