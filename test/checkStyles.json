@@ -1,0 +1,105 @@
+{
+    "blocks": [
+        {
+            "key": "328ka",
+            "text": "{{variable1}} 123{{variable1}}456{{variable1}} 789",
+            "type": "unstyled",
+            "depth": 0,
+            "inlineStyleRanges": [
+                {
+                    "offset": 2,
+                    "length": 9,
+                    "style": "UNDERLINE"
+                },
+                {
+                    "offset": 14,
+                    "length": 10,
+                    "style": "BOLD"
+                },
+                {
+                    "offset": 40,
+                    "length": 10,
+                    "style": "fontsize-10"
+                }
+            ],
+            "entityRanges": [
+                {
+                    "offset": 0,
+                    "length": 13,
+                    "key": 0
+                },
+                {
+                    "offset": 17,
+                    "length": 13,
+                    "key": 1
+                },
+                {
+                    "offset": 33,
+                    "length": 13,
+                    "key": 2
+                }
+            ],
+            "data": {}
+        },
+        {
+            "key": "dsasu",
+            "text": "sdf{{variable1}}sdf",
+            "type": "unstyled",
+            "depth": 0,
+            "inlineStyleRanges": [
+                {
+                    "offset": 3,
+                    "length": 13,
+                    "style": "BOLD"
+                },
+                {
+                    "offset": 3,
+                    "length": 13,
+                    "style": "UNDERLINE"
+                }
+            ],
+            "entityRanges": [
+                {
+                    "offset": 3,
+                    "length": 13,
+                    "key": 3
+                }
+            ],
+            "data": {}
+        }
+    ],
+    "entityMap": {
+        "0": {
+            "type": "VARIABLE",
+            "mutability": "IMMUTABLE",
+            "data": {
+                "key": "{{variable1}}",
+                "text": "Some thing"
+            }
+        },
+        "1": {
+            "type": "VARIABLE",
+            "mutability": "IMMUTABLE",
+            "data": {
+                "key": "{{variable1}}",
+                "text": "Some thing"
+            }
+        },
+        "2": {
+            "type": "VARIABLE",
+            "mutability": "IMMUTABLE",
+            "data": {
+                "key": "{{variable1}}",
+                "text": "Some thing"
+            }
+        },
+        "3": {
+            "type": "VARIABLE",
+            "mutability": "IMMUTABLE",
+            "data": {
+                "key": "{{variable1}}",
+                "text": "Some thing"
+            }
+        }
+    }
+}
