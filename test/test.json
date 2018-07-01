@@ -1,0 +1,108 @@
+{
+    "blocks": [
+        {
+            "key": "e6vh3",
+            "text": "Hey First name. uyiyi{{variable1}} . fsfsdf jhkhkh,",
+            "type": "unstyled",
+            "depth": 0,
+            "inlineStyleRanges": [
+                {
+                    "offset": 16,
+                    "length": 21,
+                    "style": "BOLD"
+                },
+                {
+                    "offset": 39,
+                    "length": 12,
+                    "style": "color-rgb(235,107,86)"
+                },
+                {
+                    "offset": 44,
+                    "length": 6,
+                    "style": "bgcolor-rgb(247,218,100)"
+                }
+            ],
+            "entityRanges": [
+                {
+                    "offset": 4,
+                    "length": 10,
+                    "key": 0
+                },
+                {
+                    "offset": 21,
+                    "length": 13,
+                    "key": 1
+                }
+            ],
+            "data": {}
+        },
+        {
+            "key": "77ma8",
+            "text": "jjl",
+            "type": "unordered-list-item",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+        },
+        {
+            "key": "f6ib7",
+            "text": "font 24",
+            "type": "unordered-list-item",
+            "depth": 0,
+            "inlineStyleRanges": [
+                {
+                    "offset": 0,
+                    "length": 7,
+                    "style": "fontsize-24"
+                }
+            ],
+            "entityRanges": [],
+            "data": {}
+        },
+        {
+            "key": "6upmf",
+            "text": "h1",
+            "type": "header-one",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+        },
+        {
+            "key": "1kr8e",
+            "text": "p1",
+            "type": "unstyled",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+        },
+        {
+            "key": "2c0lp",
+            "text": "p2",
+            "type": "unstyled",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+        }
+    ],
+    "entityMap": {
+        "0": {
+            "type": "VARIABLE",
+            "mutability": "IMMUTABLE",
+            "data": {
+                "key": "variable1"
+            }
+        },
+        "1": {
+            "type": "VARIABLE",
+            "mutability": "IMMUTABLE",
+            "data": {
+                "key": "{{variable1}}",
+                "text": "Some thing"
+            }
+        }
+    }
+}

@@ -22,6 +22,7 @@
     "typescript": "^2.9.2"
   },
   "dependencies": {
+    "draftjs-to-html": "^0.8.4",
     "lodash": "^4.17.10"
   }
 }

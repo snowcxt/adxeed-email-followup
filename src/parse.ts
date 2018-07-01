@@ -1,4 +1,7 @@
-import { RawDraftContentBlock, RawDraftContentState, RawDraftEntity } from 'draft-js';
+import {
+    RawDraftContentBlock, RawDraftContentState, RawDraftEntity,
+} from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 import forEach from 'lodash/forEach';
 import template from 'lodash/template';
 
@@ -67,21 +70,24 @@ const defaultOptions = {
 };
 
 export default function parse(raw: RawDraftContentState, options?: IParseOptions) {
-    const config = {
-        ...defaultOptions,
-        ...options,
-    };
+    // const config = {
+    //     ...defaultOptions,
+    //     ...options,
+    // };
 
-    let html = '';
+    // let html = '';
 
-    const paragraph = template(config.paragraph);
+    // const paragraph = template(config.paragraph);
 
-    forEach(raw.blocks, (block) => {
-        if (!block.text) {
-            return;
-        }
-        html += paragraph({ value: parseBlock(block, raw.entityMap, config) });
-    });
+    // forEach(raw.blocks, (block) => {
+    //     if (!block.text) {
+    //         return;
+    //     }
+    //     html += paragraph({ value: parseBlock(block, raw.entityMap, config) });
+    // });
 
-    return html;
+    // return html;
+
+
+    return draftToHtml(raw);
 }
