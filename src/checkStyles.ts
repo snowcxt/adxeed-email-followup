@@ -43,7 +43,6 @@ function checkBlock(block: RawDraftContentBlock): RawDraftContentBlock {
     });
 
     block.entityRanges = [];
-    // console.log('block', JSON.stringify(block, null, 2));
     return block;
 }
 

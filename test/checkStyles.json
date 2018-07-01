@@ -75,12 +75,12 @@
                 {
                     "offset": 22,
                     "length": 4,
-                    "style": "color-rgb(97,189,109)"
+                    "style": "color-#61bd6d"
                 },
                 {
                     "offset": 25,
                     "length": 4,
-                    "style": "bgcolor-rgb(147,101,184)"
+                    "style": "bgcolor-#e25041"
                 }
             ],
             "entityRanges": [
